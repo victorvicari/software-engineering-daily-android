@@ -2,6 +2,7 @@ package com.koalatea.sedaily.database.model
 
 import android.os.Parcelable
 import androidx.room.Entity
+import androidx.room.PrimaryKey
 import com.koalatea.sedaily.util.toUTCDate
 import kotlinx.android.parcel.Parcelize
 import java.util.*
@@ -22,8 +23,12 @@ data class Comment(
         val downvoted: Boolean?
 ) : Parcelable {
 
+    @Suppress("SuspiciousVarProperty")
+    @field:PrimaryKey
+    var uniqueKey: String = _id
+        get() = _id
+
     val utcDateCreated: Date?
         get() = dateCreated.toUTCDate()
-
 
 }

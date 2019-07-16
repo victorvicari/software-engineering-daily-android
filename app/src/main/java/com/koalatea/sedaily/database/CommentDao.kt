@@ -10,10 +10,10 @@ import com.koalatea.sedaily.database.model.Comment
 interface CommentDao {
 
     @Query("SELECT * FROM comment")
-    fun getAllComments(): List<Comment>
+    suspend fun getAllComments(): List<Comment>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    fun insert(episodes: List<Comment>)
+    suspend fun insert(episodes: List<Comment>)
 
     @Query("UPDATE comment SET upvoted = :newState, score = :newScore WHERE _id = :id")
     suspend fun vote(id: String, newState: Boolean, newScore: Int)
