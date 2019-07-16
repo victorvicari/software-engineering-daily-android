@@ -13,7 +13,6 @@ import kotlin.math.max
 class CommentsViewModel(
         private val commentsRepository: CommentsRepository
 ) : ViewModel() {
-
     private val entityIdLiveData = MutableLiveData<String>()
     val commentsResource: LiveData<Resource<List<Comment>>> = Transformations.switchMap(entityIdLiveData) { entityId ->
         liveData {
@@ -65,10 +64,11 @@ class CommentsViewModel(
     }
 
     @MainThread
-    fun toggleUpvote(comment: Comment) {
+    fun toggleUpvote(comment: Comment, entityId: String) {
         viewModelScope.launch {
             commentsRepository.vote(comment._id, comment.upvoted
                     ?: false, max(comment.score ?: 0, 0))
+            entityIdLiveData.value = entityId
         }
     }
 

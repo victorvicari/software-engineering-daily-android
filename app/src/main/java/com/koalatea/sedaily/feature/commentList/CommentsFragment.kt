@@ -50,7 +50,7 @@ class CommentsFragment : BaseFragment() {
         epoxyRecyclerView.addItemDecoration(CommentsItemDecoration(requireContext(), commentDividerLeft.toInt()))
         commentsEpoxyController = CommentsEpoxyController(
                 upvoteClickListener = { comment ->
-                    viewModel.toggleUpvote(comment)
+                    viewModel.toggleUpvote(comment, entityId)
                 },
                 replyClickListener = { comment ->
                     viewModel.replyTo(comment)
@@ -61,7 +61,8 @@ class CommentsFragment : BaseFragment() {
             // Scroll to the bottom when the data is loaded.
             this.adapter.registerAdapterDataObserver(object : RecyclerView.AdapterDataObserver() {
                 override fun onItemRangeInserted(positionStart: Int, itemCount: Int) {
-                    epoxyRecyclerView.layoutManager?.scrollToPosition(commentsEpoxyController?.adapter?.itemCount?.minus(1) ?: 0)
+                    epoxyRecyclerView.layoutManager?.scrollToPosition(commentsEpoxyController?.adapter?.itemCount?.minus(1)
+                            ?: 0)
                 }
             })
         }
@@ -194,7 +195,6 @@ class CommentsFragment : BaseFragment() {
                 tag = TAG_DIALOG_PROMPT_LOGIN)
     }
 
-    private fun acknowledgeAddCommentSuccess()
-            = Snackbar.make(requireView(), R.string.add_comment_success, Snackbar.LENGTH_SHORT).show()
+    private fun acknowledgeAddCommentSuccess() = Snackbar.make(requireView(), R.string.add_comment_success, Snackbar.LENGTH_SHORT).show()
 
 }
