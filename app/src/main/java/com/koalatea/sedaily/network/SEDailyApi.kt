@@ -45,6 +45,10 @@ interface SEDailyApi {
             @Field("entityType") entityType: String = "forumthread"): Deferred<Response<GenericResponse>>
 
     @FormUrlEncoded
+    @POST("comments/{comment_id}/upvote")
+    fun upvoteCommentAsync(@Path("comment_id") commentId: String): Deferred<Response<VoteResponse>>
+
+    @FormUrlEncoded
     @POST("auth/login")
     fun loginAsync(@Field("username") usernameOrEmail: String, @Field("password") password: String): Deferred<Response<AuthResponse>>
 

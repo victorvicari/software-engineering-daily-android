@@ -1,11 +1,13 @@
 package com.koalatea.sedaily.database.model
 
 import android.os.Parcelable
+import androidx.room.Entity
 import com.koalatea.sedaily.util.toUTCDate
 import kotlinx.android.parcel.Parcelize
 import java.util.*
 
 @Parcelize
+@Entity
 data class Comment(
         val _id: String,
         val author: Author,
@@ -22,5 +24,6 @@ data class Comment(
 
     val utcDateCreated: Date?
         get() = dateCreated.toUTCDate()
+
 
 }

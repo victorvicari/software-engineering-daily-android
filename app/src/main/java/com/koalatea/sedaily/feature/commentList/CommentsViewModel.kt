@@ -8,6 +8,7 @@ import com.koalatea.sedaily.repository.CommentsRepository
 import com.koalatea.sedaily.util.Event
 import kotlinx.coroutines.launch
 import timber.log.Timber
+import kotlin.math.max
 
 class CommentsViewModel(
         private val commentsRepository: CommentsRepository
@@ -66,7 +67,8 @@ class CommentsViewModel(
     @MainThread
     fun toggleUpvote(comment: Comment) {
         viewModelScope.launch {
-            commentsRepository
+            commentsRepository.vote(comment._id, comment.upvoted
+                    ?: false, max(comment.score ?: 0, 0))
         }
     }
 
