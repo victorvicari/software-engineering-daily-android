@@ -38,4 +38,13 @@ class CommentsRepository(
         }
     }
 
+    suspend fun vote(commentId: String, originalState: Boolean, originaScore: Int) = withContext(Dispatchers.IO) {
+        val response = if (originalState) {
+//            api.
+        } else {
+
+        }
+
+    }
+
 }

@@ -9,9 +9,16 @@ import com.koalatea.sedaily.R
 abstract class CommentEpoxyModelWithHolder : BaseCommentEpoxyModelWithHolder<CommentHolder>() {
 
     @EpoxyAttribute lateinit var replyClickListener: () -> Unit
+    @EpoxyAttribute
+    lateinit var upvoteClickListener: () -> Unit
 
     override fun bind(holder: CommentHolder) {
         super.bind(holder)
+
+        holder.likesButton.setOnClickListener {
+            it.isEnabled = false
+            upvoteClickListener()
+        }
 
         holder.replayButton.setOnClickListener { replyClickListener() }
     }
@@ -19,5 +26,6 @@ abstract class CommentEpoxyModelWithHolder : BaseCommentEpoxyModelWithHolder<Com
 }
 
 class CommentHolder : BaseCommentHolder() {
+    val likesButton by bind<Button>(R.id.likesButton)
     val replayButton by bind<Button>(R.id.replyButton)
 }

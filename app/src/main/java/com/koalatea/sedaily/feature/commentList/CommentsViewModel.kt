@@ -64,6 +64,13 @@ class CommentsViewModel(
     }
 
     @MainThread
+    fun toggleUpvote(comment: Comment) {
+        viewModelScope.launch {
+            commentsRepository
+        }
+    }
+
+    @MainThread
     fun replyTo(comment: Comment) {
         _replyToCommentLiveData.value = comment
     }

@@ -49,6 +49,9 @@ class CommentsFragment : BaseFragment() {
         val commentDividerLeft = resources.getDimension(R.dimen.comment_divider_left)
         epoxyRecyclerView.addItemDecoration(CommentsItemDecoration(requireContext(), commentDividerLeft.toInt()))
         commentsEpoxyController = CommentsEpoxyController(
+                upvoteClickListener = { comment ->
+                    viewModel.toggleUpvote(comment)
+                },
                 replyClickListener = { comment ->
                     viewModel.replyTo(comment)
                 }
