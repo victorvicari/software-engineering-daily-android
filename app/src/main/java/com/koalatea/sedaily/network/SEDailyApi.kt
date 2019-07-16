@@ -44,7 +44,6 @@ interface SEDailyApi {
             @Field("content") commentContent: String,
             @Field("entityType") entityType: String = "forumthread"): Deferred<Response<GenericResponse>>
 
-    @FormUrlEncoded
     @POST("comments/{comment_id}/upvote")
     fun upvoteCommentAsync(@Path("comment_id") commentId: String): Deferred<Response<VoteResponse>>
 
