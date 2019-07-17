@@ -47,9 +47,16 @@ class CommentsRepository(
 
     suspend fun vote(commentId: String, originalState: Boolean, originalScore: Int) = withContext(Dispatchers.IO) {
         if (sessionRepository.isLoggedIn) {
-            db.commentsDao().vote(commentId, !originalState, originalScore + 1)
+            val response = if (originalState) {
+                db.commentsDao().vote(commentId, !originalState, originalScore - 1)
 
-            val response = safeApiCall { api.upvoteCommentAsync(commentId).await() }
+                safeApiCall { api.downvoteCommentAsync(commentId).await() }
+            } else {
+                db.commentsDao().vote(commentId, !originalState, originalScore + 1)
+
+                safeApiCall { api.upvoteCommentAsync(commentId).await() }
+            }
+
 
             if (response?.isSuccessful == false || response?.body() == null) {
                 db.commentsDao().vote(commentId, originalState, originalScore)
