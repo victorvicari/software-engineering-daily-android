@@ -18,6 +18,8 @@ class CommentsEpoxyController(
                 authorName(comment.author.name ?: comment.author.username)
                 comment(comment.content)
                 date(comment.utcDateCreated)
+                score(comment.score)
+                upvoted(comment.upvoted)
                 upvoteClickListener { upvoteClickListener(comment) }
                 replyClickListener { replyClickListener(comment) }
             }
