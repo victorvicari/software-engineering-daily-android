@@ -179,7 +179,7 @@ class CommentsFragment : BaseFragment() {
     }
 
     private fun renderComments(comments: List<Comment>) {
-        commentsEpoxyController?.setData(comments.reversed())
+        commentsEpoxyController?.setData(comments.sortedByDescending { it.score })
 
         emptyStateContainer.visibility = View.GONE
         progressBar.visibility = View.GONE
